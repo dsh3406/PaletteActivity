@@ -11,14 +11,13 @@ import android.widget.TextView;
 public class CustomAdapter extends BaseAdapter {
     Context context;
     //String[] color = new String[]{" ", "red", "yellow", "green", "blue", "gray"}; //added a blank string because I didn't like that main activity switches to second activity when application starts.
-    String[] color;
+    String[] color; String[] colorBackground;
 
-    public CustomAdapter(Context context, String[] string){
+    public CustomAdapter(Context context, String[] color, String[] colorBackground){
         this.context = context;
-        this.color = string;
+        this.color = color;
+        this.colorBackground = colorBackground;
     }
-
-    //String[] color = res.getStringArray(R.array.color_array);
 
     @Override
     public int getCount() {
@@ -41,7 +40,7 @@ public class CustomAdapter extends BaseAdapter {
         textView.findViewById(R.id.spinner);
         textView.setText(getItem(position).toString());
         if(!getItem(position).toString().equals(" ")){
-            textView.setBackgroundColor(Color.parseColor(color[position]));
+            textView.setBackgroundColor(Color.parseColor(colorBackground[position]));
         }
         return textView;
     }

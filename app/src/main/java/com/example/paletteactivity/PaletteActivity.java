@@ -22,14 +22,15 @@ public class PaletteActivity extends AppCompatActivity {
         final Spinner spinner = findViewById(R.id.spinner);
         Resources res = getResources();
         String[] color = res.getStringArray(R.array.color_array);
-        spinner.setAdapter(new CustomAdapter(this, color));
+        final String[] colorBackground = res.getStringArray(R.array.color_array_background);
+        spinner.setAdapter(new CustomAdapter(this, color, colorBackground));
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(PaletteActivity.this, CanvasActivity.class);
                 if(!parent.getItemAtPosition(position).toString().equals(" ")) { //only go to second activity if selected string is color.
-                    intent.putExtra("color", parent.getItemAtPosition(position).toString());
+                    intent.putExtra("color", colorBackground[position]);
                     startActivity(intent);
                 }
             }
