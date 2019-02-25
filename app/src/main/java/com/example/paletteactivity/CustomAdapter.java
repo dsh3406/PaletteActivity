@@ -1,6 +1,7 @@
 package com.example.paletteactivity;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +10,16 @@ import android.widget.TextView;
 
 public class CustomAdapter extends BaseAdapter {
     Context context;
-    String[] color = new String[]{" ", "red", "yellow", "green", "blue", "gray"}; //added a blank string because I didn't like that main activity switches to second activity when application starts.
+    //String[] color = new String[]{" ", "red", "yellow", "green", "blue", "gray"}; //added a blank string because I didn't like that main activity switches to second activity when application starts.
+    String[] color;
 
-    public CustomAdapter(Context context){
+    public CustomAdapter(Context context, String[] string){
         this.context = context;
+        this.color = string;
     }
+
+    //String[] color = res.getStringArray(R.array.color_array);
+
     @Override
     public int getCount() {
         return color.length;

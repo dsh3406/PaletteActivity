@@ -1,11 +1,15 @@
 package com.example.paletteactivity;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 
 public class PaletteActivity extends AppCompatActivity {
 
@@ -16,7 +20,9 @@ public class PaletteActivity extends AppCompatActivity {
 
         setTitle("Palette Activity");
         final Spinner spinner = findViewById(R.id.spinner);
-        spinner.setAdapter(new CustomAdapter(this));
+        Resources res = getResources();
+        String[] color = res.getStringArray(R.array.color_array);
+        spinner.setAdapter(new CustomAdapter(this, color));
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
