@@ -14,7 +14,7 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 
 public class PaletteActivity extends AppCompatActivity implements PaletteFragment.ColorFragmentInterface{
-
+    CanvasFragment canvasFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,7 +23,7 @@ public class PaletteActivity extends AppCompatActivity implements PaletteFragmen
         setTitle("Palette Activity");
 
         PaletteFragment paletteFragment = new PaletteFragment();
-        CanvasFragment canvasFragment = new CanvasFragment();
+        canvasFragment = new CanvasFragment();
         addFragment(paletteFragment, R.id.container_1);
         addFragment(canvasFragment, R.id.container_2);
     }
@@ -40,6 +40,7 @@ public class PaletteActivity extends AppCompatActivity implements PaletteFragmen
     public void colorSelected(String color) {
         Bundle bundle = new Bundle();
         bundle.putString("color", color);
-
+        canvasFragment.setArguments(bundle);
+        canvasFragment.changeColor();
     }
 }
