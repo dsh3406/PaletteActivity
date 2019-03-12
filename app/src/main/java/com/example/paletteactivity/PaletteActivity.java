@@ -2,6 +2,8 @@ package com.example.paletteactivity;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 
-public class PaletteActivity extends AppCompatActivity {
+public class PaletteActivity extends AppCompatActivity implements PaletteFragment.ColorFragmentInterface{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,26 +21,25 @@ public class PaletteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         setTitle("Palette Activity");
-        final Spinner spinner = findViewById(R.id.spinner);
-        Resources res = getResources();
-        String[] color = res.getStringArray(R.array.color_array);
-        final String[] colorBackground = res.getStringArray(R.array.color_array_background);
-        spinner.setAdapter(new CustomAdapter(this, color, colorBackground));
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(PaletteActivity.this, CanvasActivity.class);
-                if(!parent.getItemAtPosition(position).toString().equals(" ")) { //only go to second activity if selected string is color.
-                    intent.putExtra("color", colorBackground[position]);
-                    startActivity(intent);
-                }
-            }
+        PaletteFragment paletteFragment = new PaletteFragment();
+        CanvasFragment canvasFragment = new CanvasFragment();
+        addFragment(paletteFragment, R.id.container_1);
+        addFragment(canvasFragment, R.id.container_2);
+    }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+    public void addFragment(Fragment fragment, int id){
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(id, fragment)
+                .addToBackStack(null)
+                .commit();
+    }
 
-            }
-        });
+    @Override
+    public void colorSelected(String color) {
+        Bundle bundle = new Bundle();
+        bundle.putString("color", color);
+
     }
 }
